@@ -1,0 +1,23 @@
+@using  WeddingPlanner.Models
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Wedding Planner</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    @Html.Partial("RegisterPartial", (RegisterUserViewModel)@ViewBag.RegUser)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @Html.Partial("LoginPartial", (LoginUserViewModel)@ViewBag.LogUser)
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

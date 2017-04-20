@@ -1,0 +1,36 @@
+@model WeddingPlanner.Models.LoginUserViewModel
+
+<div class="form-group" class="d-inline">
+    <h3>Login</h3>
+    <form asp-controller-for='Home' asp-action="Login" method="POST">
+        <label asp-for="LogEmail"></label><br>
+        <input asp-for="LogEmail" class="for_control"/>
+        @{
+            if(ViewBag.LoginEml != null)
+            {
+                <span style='color:red;'>@ViewBag.LoginEml</span>
+            }
+            else
+            {
+                <span style='color:red;' asp-validation-for="LogEmail"></span>
+            }
+        }
+        <br>
+        
+        <label asp-for="LogPassword"></label><br>
+        <input asp-for="LogPassword" class="for_control"/>
+         @{
+            if(ViewBag.LoginPwd != null)
+            {
+                <span style='color:red;'>@ViewBag.LoginPwd</span>
+            }
+            else
+            {
+                <span style='color:red;' asp-validation-for="LogPassword"></span>
+            }
+        }
+        <br><br>
+
+        <button type="submit" class="btn btn-success">Login</button>
+    </form>
+</div>
