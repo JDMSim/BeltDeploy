@@ -1,0 +1,39 @@
+
+<p><a href="Users">All Users</a> | <a href="Logout">Logout</a></p>
+<h2>Hi @ViewBag.Name!</h2>
+<h3>Here is your profile description</h3>
+<textarea readonly rows=3 cols=20>@ViewBag.Desc</textarea>
+<br>
+
+<h3>Your professional network</h3>
+@{
+    <ul>
+        @foreach(var usr in @ViewBag.InNetworkUsers)
+        {
+            <p><a href="Info/@usr.Follower.UserId">@usr.Follower.Name</a></p>
+        }
+    </ul>
+
+    <h3>Invitations</h3>
+    <table class="table">
+        <tr>
+            <td>Name</td>
+            <td>Action</td>
+        </tr>
+        
+            @foreach(var usr in @ViewBag.PendingNetworkUsers)
+            {
+                @if (@usr.Follower.UserId != @ViewBag.UserID)
+                {
+                    <tr>
+                        <td><a href="Info/@usr.Follow.UserId">@usr.Follower.Name</a></td>
+                        <td>
+                            <a href="Accept/@usr.NetworkId">Accept Invite</a>
+                            <a href="Ignore/@usr.NetworkId">Ignore</a>
+                        </td>
+                    </tr>
+                }
+            }
+    </table>
+}
+

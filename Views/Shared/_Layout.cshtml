@@ -21,34 +21,6 @@
                 asp-fallback-test="window.jQuery">
         </script>
         
-        <script 
-            type="text/javascript" 
-            src="http://maps.google.com/maps/api/js?sensor=false">
-        </script>
-        
-        <script type="text/javascript">  
-            $(document).ready(function () {  
-                initialize();  
-            });  
-            function initialize() {  
-                var mapOptions = {  
-                    center: new google.maps.LatLng(6.9167, 79.8473),  
-                    zoom: 10,  
-                    mapTypeId: google.maps.MapTypeId.ROADMAP  
-                };  
-                var map = new google.maps.Map(document.getElementById("map_canvas"),  
-                    mapOptions);  
-
-                    // create a marker  
-                    var latlng = new google.maps.LatLng(6.9167, 79.8473);  
-                    var marker = new google.maps.Marker({  
-                        position: latlng,  
-                        map: map,  
-                        title: 'My Place'  
-                    });  
-            }  
-        </script>  
-        
         
         <script src="~/js/site.js" asp-append-version="true"></script>
 

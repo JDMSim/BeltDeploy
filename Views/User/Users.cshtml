@@ -1,0 +1,35 @@
+<a href="Professional_Profile">My profile</a> | <a href="Logout">Logout</a></p>
+<h3>Users with whom you might want to connect...</h3>
+
+<table class="table">
+    <tr>
+        <td>Name</td>
+        <td>Action</td>
+    </tr>
+
+@{
+
+    @foreach(var usr in @ViewBag.AllUsers)
+    {
+        
+            int invite = 0;
+            foreach(var i in @usr.Follower)
+            {
+                if (i.FollowerId == @ViewBag.CurrentUser)
+                {
+                    invite = 1;
+                }
+            }
+            
+            <tr>
+                @if (invite == 0 && @usr.UserId != ViewBag.CurrentUser)
+                {
+                    <td><a href="Info/@usr.UserId">@usr.Name</a></td>
+                    <td>
+                        <a href="Connect/@usr.UserId">Connect</a>
+                    </td>
+                }
+            </tr>
+        }
+    }
+</table>

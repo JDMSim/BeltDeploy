@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WeddingPlanner.Models
+namespace ProfessionalProfile.Models
 {
     public class LoginUserViewModel
     {

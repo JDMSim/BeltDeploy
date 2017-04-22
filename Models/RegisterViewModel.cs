@@ -1,19 +1,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WeddingPlanner.Models
+namespace ProfessionalProfile.Models
 {
     public class RegisterUserViewModel
     {
-        [DisplayAttribute(Name = "First Name")]
         [Required]
         [MinLength(2)]
-        public string FirstName { get; set; }
-        
-        [DisplayAttribute(Name = "First Name")]
-        [Required]
-        [MinLength(2)]
-        public string LastName { get; set; }
+        public string Name { get; set; }
  
         [Required]
         [EmailAddress]
@@ -30,5 +24,8 @@ namespace WeddingPlanner.Models
         [MinLength(8)]
         [DataType(DataType.Password)]
         public string ConfrimPassword { get; set; }
+
+        [RequiredAttribute]
+        public string Description { set; get; }
     }
 }

@@ -3,34 +3,41 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WeddingPlanner.Models;
+using ProfessionalProfile.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace WeddingPlanner.Controllers
+namespace ProfessionalProfile.Controllers
 {
     public class DetailController : Controller
     {
-        private readonly WeddingContext _context;
+        private readonly MainContext _context;
 
-        public DetailController(WeddingContext context)
+        public DetailController(MainContext connect)
         {
-            _context = context;
+            _context = connect;
         }
 
         [HttpGetAttribute]
-        [RouteAttribute("Detail")]
-        public IActionResult Index()
+        [RouteAttribute("Info/{id}")]
+        public IActionResult Index(int id)
         {
-            List<Guest> guests = _context.Guests.Where(gst => gst.WeddingId == (int)TempData["WeddingID"])
-                                                                                .Include(gst => gst.User)
-                                                                                .Include(gst => gst.Wedding)
-                                                                                .ToList();
-            ViewBag.Guests = guests; 
-            ViewBag.FrstWed = TempData["FirstWedder"];
-            ViewBag.ScndWed = TempData["SecondWedder"];
-            ViewBag.Date = TempData["Date"];
-            ViewBag.Address = TempData["Address"];
-            return View("Details");
+            if (HttpContext.Session == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                User CurrentUser = _context.Users.SingleOrDefault(usr => usr.UserId == id);
+                ViewBag.CurrentUser = CurrentUser;
+                return View("Details");
+            }
+        }
+
+        [HttpGetAttribute]
+        [RouteAttribute("Home")]
+        public IActionResult Home()
+        {
+            return RedirectToAction("Index", "Profile");
         }
     }
 }

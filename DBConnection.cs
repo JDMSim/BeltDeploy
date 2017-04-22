@@ -3,7 +3,7 @@ using System.Data;
 using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
  
-namespace WeddingPlanner
+namespace ProfessionalProfile
 {
     public class DbConnector
     {

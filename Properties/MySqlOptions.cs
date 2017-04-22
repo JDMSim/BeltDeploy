@@ -1,4 +1,4 @@
-namespace WeddingPlanner
+namespace ProfessionalProfile
 {
     public class MySqlOptions
     {

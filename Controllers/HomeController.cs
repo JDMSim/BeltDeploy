@@ -3,21 +3,21 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WeddingPlanner.Models;
+using ProfessionalProfile.Models;
 
-namespace WeddingPlanner.Controllers
+namespace ProfessionalProfile.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly WeddingContext _context;
+        private readonly MainContext _context;
 
-        public HomeController(WeddingContext context)
+        public HomeController(MainContext connect)
         {
-            _context = context;
+            _context = connect;
         }
 
         [HttpGet]
-        [Route("")]
+        [Route("Main")]
         public IActionResult Index()
         { 
             return View("Index");
@@ -29,7 +29,7 @@ namespace WeddingPlanner.Controllers
         {
             if (ModelState.IsValid)
             {                
-                 User TestUser = _context.Users.SingleOrDefault(jae => jae.Email == UserViewModel.Email);
+                 User TestUser = _context.Users.SingleOrDefault(usr => usr.Email == UserViewModel.Email);
 
                 if (TestUser != null)
                 {
@@ -40,12 +40,10 @@ namespace WeddingPlanner.Controllers
                 {
                     User NewUser = new User
                     {
-                        FirstName = UserViewModel.FirstName,
-                        LastName = UserViewModel.LastName,
+                        Name = UserViewModel.Name,
                         Email = UserViewModel.Email,
                         Password = UserViewModel.Password,
-                        CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now
+                        Description = UserViewModel.Description
                     };
                     _context.Add(NewUser);
                     _context.SaveChanges();
@@ -53,9 +51,9 @@ namespace WeddingPlanner.Controllers
                     User CurrentUser = _context.Users.SingleOrDefault(user => user.Email == UserViewModel.Email);
                  
                     HttpContext.Session.SetInt32("UserID", CurrentUser.UserId);
-                    HttpContext.Session.SetString("FirstName", CurrentUser.FirstName);
+                    HttpContext.Session.SetString("FirstName", CurrentUser.Name);
 
-                    return RedirectToAction("Index", "Dashboard");   
+                    return RedirectToAction("Index", "Profile");   
                 }         
             }
             else
@@ -65,13 +63,21 @@ namespace WeddingPlanner.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("LoggedIn")]
+        public IActionResult LoggedIn()
+        {
+            ViewBag.name = HttpContext.Session.GetString("Name");
+            return View("Success");
+        }
+
         [HttpPost]
         [Route("Login")]
          public IActionResult Login(LoginUserViewModel UserViewModel)
         {
             if (ModelState.IsValid)
             {
-                User CurrentUser = _context.Users.SingleOrDefault(jae => jae.Email == UserViewModel.LogEmail);
+                User CurrentUser = _context.Users.SingleOrDefault(usr => usr.Email == UserViewModel.LogEmail);
                 
                 if (CurrentUser == null)
                 {
@@ -88,8 +94,8 @@ namespace WeddingPlanner.Controllers
                     else
                     {
                         HttpContext.Session.SetInt32("UserID", CurrentUser.UserId);
-                        HttpContext.Session.SetString("FirstName", CurrentUser.FirstName);                        
-                        return RedirectToAction("Index", "Dashboard");
+                        HttpContext.Session.SetString("Name", CurrentUser.Name);                        
+                        return RedirectToAction("Index", "Profile");
                     }
                 }
             }
@@ -98,6 +104,14 @@ namespace WeddingPlanner.Controllers
                 ViewBag.LogUser = UserViewModel;
                 return View("Index", UserViewModel);
             }              
+        }
+
+        [HttpGetAttribute]
+        [RouteAttribute("Logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return View("Index");
         }
     }         
 }

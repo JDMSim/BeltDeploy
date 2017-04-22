@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
-using WeddingPlanner.Models;
+using ProfessionalProfile.Models;
 using MySQL.Data.EntityFrameworkCore.Extensions;
 
-namespace WeddingPlanner
+namespace ProfessionalProfile
 {    
     public class Startup
     {
@@ -25,7 +25,7 @@ namespace WeddingPlanner
             services.AddSession();
             services.AddMvc();
             // services.Configure<MySqlOptions>(Configuration.GetSection("DBInfo"));
-            services.AddDbContext<WeddingContext>(options => options.UseMySQL(Configuration["DBInfo:ConnectionString"]));
+            services.AddDbContext<MainContext>(options => options.UseMySQL(Configuration["DBInfo:ConnectionString"]));
             services.AddScoped<DbConnector>();
         }
          

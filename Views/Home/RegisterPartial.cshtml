@@ -1,17 +1,12 @@
- @model WeddingPlanner.Models.RegisterUserViewModel
+ @model ProfessionalProfile.Models.RegisterUserViewModel
 
 <div class="form-group">
     <h3>Register</h3>
     <form asp-controller="Home" asp-action="Register" method="POST">
         
-        <label asp-for="FirstName"></label><br>
-        <input asp-for="FirstName"/>
-        <span style='color:red;' asp-validation-for="FirstName"></span>
-        <br>
-        
-        <label asp-for="LastName"></label><br>
-        <input asp-for="LastName"/>
-        <span style='color:red;' asp-validation-for="LastName"></span>
+        <label asp-for="Name"></label><br>
+        <input asp-for="Name"/>
+        <span style='color:red;' asp-validation-for="Name"></span>
         <br>
         
         <label asp-for="Email"></label><br>
@@ -32,11 +27,18 @@
         <input asp-for="Password"/>
         <span style='color:red;' asp-validation-for="Password"></span>
         <br>
+        <p>* Password must be at least 8 characters...</p>
 
         <label asp-for="ConfrimPassword"></label><br>
         <input asp-for="ConfrimPassword"/>
         <span style='color:red;' asp-validation-for="ConfrimPassword"></span>
-        <br><br> 
+        <br>
+
+        <label asp-for="Description"></label><br>
+        <textarea asp-for="Description" rows=3 cols=21></textarea>
+        <span style='color:red;' asp-validation-for="Description"></span>
+        <br><br>
+
         <button type="submit" class="btn btn-success">Register new User</button>
     </form>
 </div>
